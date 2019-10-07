@@ -34,16 +34,16 @@ def choose_type():
 
 def main():
     team_a = "mFinanse"
-    team_b = "BoatSystems"
+    team_b = "Surchem"
     setno = 3
     tmp = []
     score = {team_a: 0, team_b: 0}
 
-    f = open("matchLog_{}_{}_{}_set{}.txt".format(team_a, team_b, current_time("%d-%m-%Y %H-%M-%S"), setno), "a")
+    f = open(r"C:\Users\pruszyns\Google Drive\volleyballStatistics\matchLog_{}_setNo{}_{}_set{}.txt".format(current_time("%d-%m-%Y %H-%M-%S"), setno, team_a, team_b), "a")
 
     while True:
-
-        print("[1] - log action \n[2] - show score\n[3] - save and exit")
+        print("\nScore: {} {} - {} {}".format(team_a, score[team_a], team_b, score[team_b]))
+        print("[1] - log action \n[2] - remove previous record\n[3] - save and exit\n")
         action = input("Option: ")
 
         if action == "1":
@@ -61,7 +61,17 @@ def main():
                 print("Incorrect input!")
 
         elif str(action) == "2":
-            print("Score: {} {} - {} {}".format(team_a, score[team_a], team_b, score[team_b]))
+            try:
+                prev_score = tmp[-2]['score']
+                score[team_a] = prev_score['team_a']
+                score[team_b] = prev_score['team_b']
+                del tmp[-1]
+
+            except IndexError:
+                prev_score = tmp[-1]['score']
+                score[team_a] = prev_score['team_a']
+                score[team_b] = prev_score['team_b']
+                del tmp[-1]
 
         elif str(action) == "3":
             save_to_file(tmp, f, team_a, team_b)
@@ -72,6 +82,5 @@ def main():
             print("Incorrect input!")
 
     f.close()
-
 
 main()
