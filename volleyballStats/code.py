@@ -76,6 +76,19 @@ def choose_subtype_opponent_error():
             print("Incorrect Input")
 
 
+def add_event():
+    print("Choose event:\n[1] - time-out\n[2] - substitution\n")
+    ptype = input("Type: ")
+
+    while True:
+        if ptype == "1":
+            return "Game event: time-out"
+        elif ptype == "2":
+            return "Game event: substitution"
+        else:
+            print("Incorrect Input")
+
+
 def main():
     team_a = "mFinanse"
     team_b = "Surchem"
