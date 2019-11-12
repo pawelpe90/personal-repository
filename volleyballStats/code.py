@@ -21,13 +21,57 @@ def choose_type():
 
     while True:
         if ptype == "1":
-            return "Attack"
+            return choose_subtype_attack()
         elif ptype == "2":
             return "Block"
         elif ptype == "3":
             return "Ace"
         elif ptype == "4":
-            return "OpponentError"
+            return choose_subtype_opponent_error()
+        else:
+            print("Incorrect Input")
+
+
+def choose_subtype_attack():
+    print("Choose type:\n[1] - zone 1 (serve) \n[2] - zone 2 (right)\n[3] - zone 3 (middle)\n"
+          "[4] - zone 4 (left)\n[5] - zone 5\n[6] - zone 6 (pipe)")
+    ptype = input("Type: ")
+
+    while True:
+        if ptype == "1":
+            return "Attack: zone1"
+        elif ptype == "2":
+            return "Attack: zone2"
+        elif ptype == "3":
+            return "Attack: zone3"
+        elif ptype == "4":
+            return "Attack: zone4"
+        elif ptype == "5":
+            return "Attack: zone5"
+        elif ptype == "6":
+            return "Attack: zone6"
+        else:
+            print("Incorrect Input")
+
+
+def choose_subtype_opponent_error():
+    print("Choose type:\n[1] - faulty attack\n[2] - faulty serve\n[3] - net foul\n"
+          "[4] - foot foul\n[5] - positional foul\n[6] - pass foul")
+    ptype = input("Type: ")
+
+    while True:
+        if ptype == "1":
+            return "OpponentError: attackFoul"
+        elif ptype == "2":
+            return "OpponentError: serveFoul"
+        elif ptype == "3":
+            return "OpponentError: netFoul"
+        elif ptype == "4":
+            return "OpponentError: footFoul"
+        elif ptype == "5":
+            return "OpponentError: positionalFoul"
+        elif ptype == "6":
+            return "OpponentError: passFoul"
         else:
             print("Incorrect Input")
 
@@ -35,7 +79,7 @@ def choose_type():
 def main():
     team_a = "mFinanse"
     team_b = "Surchem"
-    setno = 3
+    setno = 1
     tmp = []
     score = {team_a: 0, team_b: 0}
 
