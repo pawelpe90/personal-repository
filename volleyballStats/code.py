@@ -8,11 +8,18 @@ def current_time(format):
 
 def save_to_file(content, file, team_a, team_b):
     for element in content:
-        file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"], element["team"], element["type"]))
+        if len(element) == 3:
+            file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"], element["team"], element["type"]))
+        else:
+            file.write(element["info"])
 
 
 def add_record(team, score_team_a, score_team_b, ptype):
     return {"team": team, "score": {"team_a": score_team_a, "team_b": score_team_b}, "type": ptype}
+
+
+def add_event(info):
+    return {"info": info}
 
 
 def choose_type():
@@ -76,15 +83,29 @@ def choose_subtype_opponent_error():
             print("Incorrect Input")
 
 
-def add_event():
+def event_creator(team_a, team_b):
+    team = team_picker(team_a, team_b)
     print("Choose event:\n[1] - time-out\n[2] - substitution\n")
     ptype = input("Type: ")
 
     while True:
         if ptype == "1":
-            return "Game event: time-out"
+            return f"Game event: time-out for {team}"
         elif ptype == "2":
-            return "Game event: substitution"
+            return f"Game event: substitution for {team}"
+        else:
+            print("Incorrect Input")
+
+
+def team_picker(team_a, team_b):
+    print(f"Pick team: \n[1] - {team_a}\n[2] - {team_b}")
+    team = input("Team: ")
+
+    while True:
+        if team == "1":
+            return team_a
+        elif team == "2":
+            return team_b
         else:
             print("Incorrect Input")
 
@@ -100,7 +121,7 @@ def main():
 
     while True:
         print("\nScore: {} {} - {} {}".format(team_a, score[team_a], team_b, score[team_b]))
-        print("[1] - log action \n[2] - remove previous record\n[3] - save and exit\n")
+        print("[1] - log action \n[2] - remove previous record\n[3] - log event\n[4] - save and exit\n")
         action = input("Option: ")
 
         if action == "1":
@@ -131,6 +152,10 @@ def main():
                 del tmp[-1]
 
         elif str(action) == "3":
+            event = event_creator(team_a, team_b)
+            tmp.append(add_event(event))
+
+        elif str(action) == "4":
             save_to_file(tmp, f, team_a, team_b)
             print("End of the session")
             break
