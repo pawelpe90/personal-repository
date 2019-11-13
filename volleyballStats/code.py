@@ -70,7 +70,8 @@ def choose_subtype_attack():
 
 def choose_subtype_opponent_error():
     print("Choose type:\n[1] - faulty attack\n[2] - faulty serve\n[3] - net foul\n"
-          "[4] - foot foul\n[5] - positional foul\n[6] - pass foul")
+          "[4] - foot foul\n[5] - positional foul\n[6] - pass foul\n[7] - hand interlay\n[8] - setter disturbance"
+          "\n[9] - other")
     ptype = input("Type: ")
 
     while True:
@@ -86,6 +87,12 @@ def choose_subtype_opponent_error():
             return "OpponentError: positionalFoul"
         elif ptype == "6":
             return "OpponentError: passFoul"
+        elif ptype == "7":
+            return "OpponentError: handInterlay"
+        elif ptype == "8":
+            return "OpponentError: setterDisturbance"
+        elif ptype == "9":
+            return "OpponentError: other"
         else:
             print("Incorrect Input")
 
