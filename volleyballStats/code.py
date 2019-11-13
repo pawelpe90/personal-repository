@@ -1,4 +1,6 @@
 import datetime
+import json
+import os
 
 
 def current_time(format):
@@ -8,18 +10,23 @@ def current_time(format):
 
 def save_to_file(content, file):
     for element in content:
-        if len(element) == 3:
-            file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"], element["team"], element["type"]))
+        if len(element) == 4:
+            file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"], element["team"], element["ptype"]))
         else:
             file.write(element["info"])
 
 
-def add_record(team, score_team_a, score_team_b, ptype):
-    return {"team": team, "score": {"team_a": score_team_a, "team_b": score_team_b}, "type": ptype}
+def save_to_json(content, path):
+    with open(path, "a") as json_outfile:
+        json.dump(content, json_outfile)
 
 
-def add_event(info):
-    return {"info": info}
+def add_record(team, score_team_a, score_team_b, ptype, type="record"):
+    return {"type": type, "team": team, "score": {"team_a": score_team_a, "team_b": score_team_b}, "ptype": ptype}
+
+
+def add_event(info, type="event"):
+    return {"type": type, "info": info}
 
 
 def choose_type():
@@ -90,9 +97,9 @@ def event_creator(team_a, team_b):
 
     while True:
         if ptype == "1":
-            return f"Game event: time-out for {team}"
+            return f"Game event: time-out for {team}\n"
         elif ptype == "2":
-            return f"Game event: substitution for {team}"
+            return f"Game event: substitution for {team}\n"
         else:
             print("Incorrect Input")
 
@@ -116,8 +123,10 @@ def main():
     setno = 1
     tmp = []
     score = {team_a: 0, team_b: 0}
+    path = r"C:\Users\pruszyns\Google Drive\volleyballStatistics"
+    fname = "matchLog_{}_setNo{}_{}_{}".format(current_time("%d-%m-%Y %H-%M-%S"), setno, team_a, team_b)
 
-    f = open(r"C:\Users\pruszyns\Google Drive\volleyballStatistics\matchLog_{}_setNo{}_{}_{}.txt".format(current_time("%d-%m-%Y %H-%M-%S"), setno, team_a, team_b), "a")
+    f = open(os.path.join(path, fname + ".txt"), "a")
 
     while True:
         print("\nScore: {} {} - {} {}".format(team_a, score[team_a], team_b, score[team_b]))
@@ -157,6 +166,7 @@ def main():
 
         elif str(action) == "4":
             save_to_file(tmp, f)
+            save_to_json(tmp, os.path.join(path, fname + ".json"))
             print("End of the session")
             break
 
