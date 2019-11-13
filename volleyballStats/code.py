@@ -6,7 +6,7 @@ def current_time(format):
     return t.strftime(format)
 
 
-def save_to_file(content, file, team_a, team_b):
+def save_to_file(content, file):
     for element in content:
         if len(element) == 3:
             file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"], element["team"], element["type"]))
@@ -111,13 +111,13 @@ def team_picker(team_a, team_b):
 
 
 def main():
-    team_a = "mFinanse"
-    team_b = "Surchem"
+    team_a = "BioEden"
+    team_b = "Ortomed"
     setno = 1
     tmp = []
     score = {team_a: 0, team_b: 0}
 
-    f = open(r"C:\Users\pruszyns\Google Drive\volleyballStatistics\matchLog_{}_setNo{}_{}_set{}.txt".format(current_time("%d-%m-%Y %H-%M-%S"), setno, team_a, team_b), "a")
+    f = open(r"C:\Users\pruszyns\Google Drive\volleyballStatistics\matchLog_{}_setNo{}_{}_{}.txt".format(current_time("%d-%m-%Y %H-%M-%S"), setno, team_a, team_b), "a")
 
     while True:
         print("\nScore: {} {} - {} {}".format(team_a, score[team_a], team_b, score[team_b]))
@@ -156,7 +156,7 @@ def main():
             tmp.append(add_event(event))
 
         elif str(action) == "4":
-            save_to_file(tmp, f, team_a, team_b)
+            save_to_file(tmp, f)
             print("End of the session")
             break
 
