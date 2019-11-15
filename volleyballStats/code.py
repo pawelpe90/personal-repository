@@ -11,7 +11,8 @@ def current_time(format):
 def save_to_file(content, file):
     for element in content:
         if len(element) == 4:
-            file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"], element["team"], element["ptype"]))
+            file.write("[{}-{}] Point for {}! {}\n".format(element["score"]["team_a"], element["score"]["team_b"],
+                                                           element["team"], element["ptype"]))
         else:
             file.write(element["info"])
 
@@ -30,10 +31,9 @@ def add_event(info, type="event"):
 
 
 def choose_type():
-    print("Choose type:\n[1] - attack \n[2] - block\n[3] - ace\n[4] - opponent error")
-    ptype = input("Type: ")
-
     while True:
+        print("Choose type:\n[1] - attack \n[2] - block\n[3] - ace\n[4] - opponent error")
+        ptype = input("Type: ")
         if ptype == "1":
             return choose_subtype_attack()
         elif ptype == "2":
@@ -47,11 +47,10 @@ def choose_type():
 
 
 def choose_subtype_attack():
-    print("Choose type:\n[1] - zone 1 (serve) \n[2] - zone 2 (right)\n[3] - zone 3 (middle)\n"
-          "[4] - zone 4 (left)\n[5] - zone 5\n[6] - zone 6 (pipe)")
-    ptype = input("Type: ")
-
     while True:
+        print("Choose type:\n[1] - zone 1 (serve) \n[2] - zone 2 (right)\n[3] - zone 3 (middle)\n"
+              "[4] - zone 4 (left)\n[5] - zone 5\n[6] - zone 6 (pipe)")
+        ptype = input("Type: ")
         if ptype == "1":
             return "Attack: zone1"
         elif ptype == "2":
@@ -69,12 +68,11 @@ def choose_subtype_attack():
 
 
 def choose_subtype_opponent_error():
-    print("Choose type:\n[1] - faulty attack\n[2] - faulty serve\n[3] - net foul\n"
-          "[4] - foot foul\n[5] - positional foul\n[6] - pass foul\n[7] - hand interlay\n[8] - setter disturbance"
-          "\n[9] - other")
-    ptype = input("Type: ")
-
     while True:
+        print("Choose type:\n[1] - faulty attack\n[2] - faulty serve\n[3] - net foul\n"
+              "[4] - foot foul\n[5] - positional foul\n[6] - pass foul\n[7] - hand interlay\n[8] - setter disturbance"
+              "\n[9] - other")
+        ptype = input("Type: ")
         if ptype == "1":
             return "OpponentError: attackFoul"
         elif ptype == "2":
